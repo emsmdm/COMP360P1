@@ -22,6 +22,34 @@ bool identCheck(string s)
     return false;
 }
 
+bool leftBrace(char ch){
+    if (ch == '{'){
+        return true;
+    }
+    return false;
+}
+
+bool rightBrace(char ch){
+    if (ch == '}'){
+        return true;
+    }
+    return false;
+}
+
+bool eq(char ch){
+    if (ch == '='){
+        return true;
+    }
+    return false;
+}
+
+bool semicolon(char ch){
+    if (ch == ';'){
+        return true;
+    }
+    return false;
+}
+
 int main()
 {
     /* test for file reading
@@ -35,32 +63,4 @@ int main()
 
     MyFile.close();
     */
-}
-
-bool leftBrace(char ch){
-    if (ch == '{'){
-        return true;
-    }
-    return false
-}
-
-bool rightBrace(char ch){
-    if (ch == '}'){
-        return true;
-    }
-    return false
-}
-
-bool eq(char ch){
-    if (ch == '='){
-        return true;
-    }
-    return false
-}
-
-bool semicolon(char ch){
-    if (ch == ';'){
-        return true;
-    }
-    return false
 }
