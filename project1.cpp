@@ -62,13 +62,24 @@ int main()
     {
         lexemes.push_back(text);
     }
+
+    for(int i = 0; i < lexemes.size(); i++){
+        for(int j = 0; j < sizeof(lexemes[i]); j++){
+            if(isWalNum(lexemes[i][j]) == false){
+                string sub = lexemes[i][j].substr(lexemes[i][j],1);
+                string sub2 = lexemes[i][j].substr(lexemes[i][j+1]);
+                lexemes[i][j] = sub2;
+                lexemes.push_back(sub);
+            }
+        }
+    }
     
     MyFile.close();
 
-    /*for(int i = 0; i < lexemes.size(); i++)
+    for(int i = 0; i < lexemes.size(); i++)
     {
         cout << lexemes.at(i)<<endl;
-    }*/
-    cout<<lexemes.at(1);
+    }
+    //cout<<lexemes.at(1);
     
 }
