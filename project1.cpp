@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <cwctype>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -52,15 +54,21 @@ bool semicolon(char ch){
 
 int main()
 {
-    /* test for file reading
     ifstream MyFile("TryProgram1.txt");
     string text;
+    vector <string> lexemes;
 
-    while(getline(MyFile, text))
+    while(getline(MyFile, text, ' '))
     {
-        cout << text << endl;
+        lexemes.push_back(text);
     }
-
+    
     MyFile.close();
-    */
+
+    /*for(int i = 0; i < lexemes.size(); i++)
+    {
+        cout << lexemes.at(i)<<endl;
+    }*/
+    cout<<lexemes.at(1);
+    
 }
