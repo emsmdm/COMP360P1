@@ -57,29 +57,44 @@ int main()
     ifstream MyFile("TryProgram1.txt");
     string text;
     vector <string> lexemes;
+    int counter;
 
     while(getline(MyFile, text, ' '))
     {
         lexemes.push_back(text);
     }
+    MyFile.close();
+    
+    vector<char> non_alphabetic_characters;
 
-    for(int i = 0; i < lexemes.size(); i++){
-        for(int j = 0; j < sizeof(lexemes[i]); j++){
-            if(isWalNum(lexemes[i][j]) == false){
-                string sub = lexemes[i][j].substr(lexemes[i][j],1);
-                string sub2 = lexemes[i][j].substr(lexemes[i][j+1]);
-                lexemes[i][j] = sub2;
-                lexemes.push_back(sub);
+    for (auto token : lexemes)
+    {
+        for (char ch : token) 
+        {
+            if (ch < 'A' || ch > 'Z' && ch < 'a' || ch > 'z') 
+            {
+                //cout << ch << endl;
+                non_alphabetic_characters.push_back(ch);
             }
         }
     }
+
+  for (auto ch : non_alphabetic_characters) {
+    string temp;
+    temp += ch;
+    lexemes.push_back(temp);
+  }
+
+  
+
     
-    MyFile.close();
+    
 
     for(int i = 0; i < lexemes.size(); i++)
     {
         cout << lexemes.at(i)<<endl;
     }
-    //cout<<lexemes.at(1);
+    //cout<<iswalnum(';');
+    //cout<<lexemes.at(1).at(0);
     
 }
