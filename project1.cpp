@@ -9,7 +9,7 @@ using namespace std;
 
 bool keywordCheck(string s)
 {
-    if(s == "void" || "float" || "int" || "double" || "string" || "bool" || "char")
+    if(s == "void" || s == "float" || s == "int" || s == "double" || s == "string" || s == "bool" || s == "char")
     {
         return true;
     }
@@ -25,34 +25,50 @@ bool identCheck(string s)
     return false;
 }
 
-bool leftBrace(char ch){
-    if (ch == '{' | ch == '('){
+bool leftBrace(string ch){
+    if (ch == "{" || ch == "("){
         return true;
     }
     return false;
 }
 
-bool rightBrace(char ch){
-    if (ch == '}' | ch == ')'){
+bool rightBrace(string ch){
+    if (ch == "}" || ch == ")"){
         return true;
     }
     return false;
 }
 
-bool eq(char ch){
-    if (ch == '='){
+bool eq(string ch){
+    if (ch == "="){
         return true;
     }
     return false;
 }
 
-bool semicolon(char ch){
-    if (ch == ';'){
+bool semicolon(string ch){
+    if (ch == ";"){
         return true;
     }
     return false;
 }
-vector<string> wordSeparation(string filename) {
+
+bool plusop(string ch){
+    if(ch == "+")
+    {
+        return true;
+    }
+    return false;
+}
+
+bool minusop(string ch){
+    if(ch == "-")
+    {
+        return true;
+    }
+    return false;
+}
+vector<string> tokenSeparation(string filename) {
   ifstream myFile(filename);
   if (!myFile.is_open())
   {
@@ -61,56 +77,56 @@ vector<string> wordSeparation(string filename) {
   }
 
   string line;
-  vector<string> words;
+  vector<string> tokens;
 
   while (getline(myFile, line))
   {
-    bool in_word = false;
-    string word;
+    bool inToken = false;
+    string token;
 
     for (int i = 0; i < line.length(); i++)
     {
       if (isalnum(line[i]))
       {
-        if (!in_word)
+        if (!inToken)
         {
-          word.clear();
-          in_word = true;
+          token.clear();
+          inToken = true;
         }
-        word += line[i];
+        token += line[i];
       }
       else
       {
-        if (in_word)
+        if (inToken)
         {
-          words.push_back(word);
-          in_word = false;
+          tokens.push_back(token);
+          inToken = false;
         }
-        words.push_back(string(1, line[i]));
+        tokens.push_back(string(1, line[i]));
       }
     }
 
-    if (in_word)
+    if (inToken)
     {
-      words.push_back(word);
+      tokens.push_back(token);
     }
   }
 
   myFile.close();
 
-  for (int i = 0; i < words.size(); i++)
+  for (int i = 0; i < tokens.size(); i++)
   {
-    if (words[i] == " " || words[i] == "\n")
+    if (tokens[i] == " " || tokens[i] == "\n")
     {
-      words.erase(words.begin() + i);
+      tokens.erase(tokens.begin() + i);
       i--;
     }
   }
 
-  return words;
+  return tokens;
 }
 
-bool isProgram(){
+/*bool isProgram(vector <string> vec){
     if(isKeyword()){
         if(isIdent()){
             if(leftBrace(lexemes[i]) == true){
@@ -132,7 +148,7 @@ bool isProgram(){
             }
         }
     }
-}
+}*/
 
 bool isDeclaration(){
 
@@ -154,15 +170,56 @@ bool isIdent(){
 
 }
 
+void analyze(vector <string> vec)
+{
+    for(string token : vec)
+    {
+        if(keywordCheck(token))
+        {
+            cout << "keyword     " << token << endl;
+        }
+        else if(identCheck(token))
+        {
+            cout << "ident     " << token << endl;
+        }
+        else if(leftBrace(token))
+        {
+            cout << "l_brace     " << token << endl;
+        }
+        else if(rightBrace(token))
+        {
+            cout << "r_brace     " << token << endl;
+        }
+        else if(eq(token))
+        {
+            cout << "eq          " << token << endl;
+        }
+        else if(semicolon(token))
+        {
+            cout << "semicolon   " << token << endl;
+        }
+        else if(plusop(token))
+        {
+            cout << "plus_op     " << token << endl;
+        }
+        else if(minusop(token))
+        {
+            cout << "minus_op    " << token << endl;
+        }
+    }
+}
+
 int main()
 {
     string filename = "TryProgram1.txt";
-    vector<string> words = wordSeparation(filename);
+    vector<string> tokens = tokenSeparation(filename);
 
-    for (int i = 0; i < words.size(); i++) 
+    /*for (int i = 0; i < words.size(); i++) 
     {
         cout << words[i] << endl;
     }
-    cout << endl;
+    cout << endl;*/
+    analyze(tokens);
+
     
 }
