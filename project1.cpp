@@ -3,6 +3,7 @@
 #include <cwctype>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -51,50 +52,73 @@ bool semicolon(char ch){
     }
     return false;
 }
+vector<string> separate_words_and_special_characters_keeping_words_together(string filename) {
+  ifstream myFile(filename);
+  if (!myFile.is_open())
+  {
+    cout << "Error opening file " << filename << endl;
+    return vector<string>();
+  }
+
+  string line;
+  vector<string> words;
+
+  while (getline(myFile, line))
+  {
+    bool in_word = false;
+    string word;
+
+    for (int i = 0; i < line.length(); i++)
+    {
+      if (isalnum(line[i]))
+      {
+        if (!in_word)
+        {
+          word.clear();
+          in_word = true;
+        }
+        word += line[i];
+      }
+      else
+      {
+        if (in_word)
+        {
+          words.push_back(word);
+          in_word = false;
+        }
+        words.push_back(string(1, line[i]));
+      }
+    }
+
+    if (in_word)
+    {
+      words.push_back(word);
+    }
+  }
+
+  myFile.close();
+
+  for (int i = 0; i < words.size(); i++)
+  {
+    if (words[i] == " " || words[i] == "\n")
+    {
+      words.erase(words.begin() + i);
+      i--;
+    }
+  }
+
+  return words;
+}
 
 int main()
 {
-    ifstream MyFile("TryProgram1.txt");
-    string text;
-    vector <string> lexemes;
-    int counter;
+    string filename = "TryProgram1.txt";
+    vector<string> words = separate_words_and_special_characters_keeping_words_together(filename);
 
-    while(getline(MyFile, text, ' '))
+    for (int i = 0; i < words.size(); i++) 
     {
-        lexemes.push_back(text);
+        cout << words[i] << endl;
     }
-    MyFile.close();
-    
-    vector<char> non_alphabetic_characters;
-
-    for (auto token : lexemes)
-    {
-        for (char ch : token) 
-        {
-            if (ch < 'A' || ch > 'Z' && ch < 'a' || ch > 'z') 
-            {
-                //cout << ch << endl;
-                non_alphabetic_characters.push_back(ch);
-            }
-        }
-    }
-
-  for (auto ch : non_alphabetic_characters) {
-    string temp;
-    temp += ch;
-    lexemes.push_back(temp);
-  }
-
-  
-
-    
-    
-
-    for(int i = 0; i < lexemes.size(); i++)
-    {
-        cout << lexemes.at(i)<<endl;
-    }
-    //cout<<iswalnum(';');
-    //cout<<lexemes.at(1).at(0);
+    cout << endl;
     
 }
