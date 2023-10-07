@@ -167,6 +167,11 @@ bool isAssignment(){
 }
 
 bool isExpression(){
+    isIdent();
+    isExpressionDash();
+}
+
+bool isExpressionDash(){
 
 }
 
