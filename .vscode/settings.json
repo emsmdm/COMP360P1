@@ -9,6 +9,8 @@
         "deque": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "cwctype": "cpp",
+        "algorithm": "cpp"
     }
 }

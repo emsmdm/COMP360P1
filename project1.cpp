@@ -22,7 +22,7 @@ bool identCheck(string s)
     {
         return false;
     }
-    return false;
+    return true;
 }
 
 bool leftBrace(string ch){
@@ -150,8 +150,16 @@ vector<string> tokenSeparation(string filename) {
     }
 }*/
 
-bool isDeclaration(){
+bool isDeclaration(string line){
+    if(keywordCheck(line.substr(0,line.find(" "))) && identCheck(line.substr(line.find(" "))))
+    {
+        return true;
+    }
+    return false;
+}
 
+bool isDeclarationDash(){
+    
 }
 
 bool isAssignment(){
@@ -176,7 +184,7 @@ void analyze(vector <string> vec)
     {
         if(keywordCheck(token))
         {
-            cout << "keyword     " << token << endl;
+            cout << "keyword   " << token << endl;
         }
         else if(identCheck(token))
         {
@@ -213,13 +221,26 @@ int main()
 {
     string filename = "TryProgram1.txt";
     vector<string> tokens = tokenSeparation(filename);
+    ifstream MyFile(filename);
+    string text;
+    vector <string> lexemes;
+
+    while(getline(MyFile, text))
+    {
+        //cout << text << endl;
+        lexemes.push_back(text);
+    }
+
+    cout<<isDeclaration(lexemes[1]);
+    
+    MyFile.close();
 
     /*for (int i = 0; i < words.size(); i++) 
     {
         cout << words[i] << endl;
     }
     cout << endl;*/
-    analyze(tokens);
+    //analyze(tokens);
 
     
 }
