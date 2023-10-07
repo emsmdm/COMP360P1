@@ -9,6 +9,7 @@ using namespace std;
 
 int num = -1;
 
+// function for checking keywords
 bool keywordCheck(string s)
 {
     if(s == "void" || s == "float" || s == "int" || s == "double" || s == "string" || s == "bool" || s == "char")
@@ -18,6 +19,7 @@ bool keywordCheck(string s)
     return false;
 }
 
+// function for checking identifiers
 bool identCheck(string s)
 {
     if(isdigit(s[0]))
@@ -27,6 +29,7 @@ bool identCheck(string s)
     return true;
 }
 
+// functions for checking left and right braces
 bool leftBrace(string ch){
     if (ch == "{" || ch == "("){
         return true;
@@ -41,6 +44,7 @@ bool rightBrace(string ch){
     return false;
 }
 
+// function for checking equals
 bool eq(string ch){
     if (ch == "="){
         return true;
@@ -48,6 +52,7 @@ bool eq(string ch){
     return false;
 }
 
+// function for checking semicolons
 bool semicolon(string ch){
     if (ch == ";"){
         return true;
@@ -55,6 +60,7 @@ bool semicolon(string ch){
     return false;
 }
 
+// functions for checking plus and minus operators
 bool plusop(string ch){
     if(ch == "+")
     {
@@ -70,7 +76,11 @@ bool minusop(string ch){
     }
     return false;
 }
+
+// function for separating each token from try program
 vector<string> tokenSeparation(string filename) {
+  
+  //opens file and checks for errors
   ifstream myFile(filename);
   if (!myFile.is_open())
   {
@@ -85,7 +95,8 @@ vector<string> tokenSeparation(string filename) {
   {
     bool inToken = false;
     string token;
-
+    
+    // logic for separating special characters from other tokens in program
     for (int i = 0; i < line.length(); i++)
     {
       if (isalnum(line[i]))
@@ -116,6 +127,7 @@ vector<string> tokenSeparation(string filename) {
 
   myFile.close();
 
+  // removes spaces from token vector
   for (int i = 0; i < tokens.size(); i++)
   {
     if (tokens[i] == " " || tokens[i] == "\n")
@@ -151,6 +163,8 @@ vector<string> tokenSeparation(string filename) {
         }
     }
 }*/
+
+// gets next token for parsing
 string getToken()
 {
     num++;
@@ -170,6 +184,7 @@ bool isExpression(string line){
     return false;
 }
 
+//utilzes getToken() function to check if a declaration is present
 bool isDeclaration(string token){
     if(keywordCheck(token))
     {
@@ -180,6 +195,7 @@ bool isDeclaration(string token){
                 string temp = getToken();
                 if(keywordCheck(temp))
                 {
+                    // recursive declaration call for the or condition
                     isDeclaration(temp);
                 }
                 else
@@ -206,7 +222,7 @@ bool isAssignment(string line){
     return false;
 }
 
-
+// lexical analyzer
 void analyze(vector <string> vec)
 {
     for(string token : vec)
@@ -251,17 +267,7 @@ int main()
     string filename = "TryProgram1.txt";
     vector<string> tokens = tokenSeparation(filename);
     ifstream MyFile(filename);
-    string text;
-    vector <string> lexemes;
     int counter = 0;
-
-    while(getline(MyFile, text))
-    {
-        //cout << text << endl;
-        lexemes.push_back(text);
-    }
-    
-    MyFile.close();
 
     for(int i = 0; i < tokens.size(); i++)
     {
@@ -271,7 +277,7 @@ int main()
         }
     }
     counter--;
-    //analyze(tokens);
+    analyze(tokens);
 
     
 }
