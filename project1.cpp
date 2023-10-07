@@ -171,10 +171,16 @@ bool isAssignment(string line){
 }
 
 bool isExpression(string line){
-   // isIdent();
-    //isExpressionDash();
+    string identity = line.substr(line.find("= ")+1, " ");
+    if(identCheck(identity) && (plusop(string) || minusop(string))){
+        if((line.find("+") == line.find(identity) + 2 || line.find("-") == line.find(identity) + 2) && (isExpression(line.substr(line.find("+ ") + 1, " ")) || isExpression(line.substr(line.find("- ") + 1, " "))){
+            return true;
+        }
+    } if else(identCheck(identity)){
+        return true;
+    }
+    return false;
 }
-
 
 void analyze(vector <string> vec)
 {
