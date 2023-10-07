@@ -7,6 +7,8 @@
 
 using namespace std;
 
+int num = -1;
+
 bool keywordCheck(string s)
 {
     if(s == "void" || s == "float" || s == "int" || s == "double" || s == "string" || s == "bool" || s == "char")
@@ -149,14 +151,48 @@ vector<string> tokenSeparation(string filename) {
         }
     }
 }*/
-
-bool isDeclaration(string line){
-    string end;
-    end += line.back();
-    if(keywordCheck(line.substr(0,line.find(" "))) && identCheck(line.substr(line.find(" ")+1, line.find(";"))) && semicolon(end))
-    {
+string getToken()
+{
+    num++;
+    vector <string> vec = tokenSeparation("TryProgram1.txt");
+    return vec[num];
+}
+bool isExpression(string line){
+    string identity = line.substr(line.find("= ")+1, line.find(" "));
+    if(identCheck(identity)){
+        if((line.find("+") == line.find(identity) + 2 || line.find("-") == line.find(identity) + 2) && (isExpression(line.substr(line.find("+ ") + 1, line.find(" "))) || isExpression(line.substr(line.find("- ") + 1, line.find(" "))))){
+            return true;
+        }
+    } 
+    else if(identCheck(identity)){
         return true;
     }
+    return false;
+}
+
+bool isDeclaration(string token){
+    if(keywordCheck(token))
+    {
+        if((identCheck(getToken())))
+        {
+            if(semicolon(getToken()))
+            {
+                string temp = getToken();
+                if(keywordCheck(temp))
+                {
+                    isDeclaration(temp);
+                }
+                else
+                {
+                    num--;
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     return false;
 }
 
@@ -170,18 +206,6 @@ bool isAssignment(string line){
     return false;
 }
 
-bool isExpression(string line){
-    string identity = line.substr(line.find("= ")+1, line.find(" "));
-    if(identCheck(identity)){
-        if((line.find("+") == line.find(identity) + 2 || line.find("-") == line.find(identity) + 2) && (isExpression(line.substr(line.find("+ ") + 1, line.find(" "))) || isExpression(line.substr(line.find("- ") + 1, line.find(" "))))){
-            return true;
-        }
-    } 
-    else if(identCheck(identity)){
-        return true;
-    }
-    return false;
-}
 
 void analyze(vector <string> vec)
 {
@@ -229,22 +253,24 @@ int main()
     ifstream MyFile(filename);
     string text;
     vector <string> lexemes;
+    int counter = 0;
 
     while(getline(MyFile, text))
     {
         //cout << text << endl;
         lexemes.push_back(text);
     }
-
-    cout<<isDeclaration(lexemes[1]);
     
     MyFile.close();
 
-    /*for (int i = 0; i < words.size(); i++) 
+    for(int i = 0; i < tokens.size(); i++)
     {
-        cout << words[i] << endl;
+        if(tokens[i] == "float")
+        {
+            counter++;
+        }
     }
-    cout << endl;*/
+    counter--;
     //analyze(tokens);
 
     
