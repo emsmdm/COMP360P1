@@ -172,11 +172,11 @@ bool isAssignment(string line){
 
 bool isExpression(string line){
     string identity = line.substr(line.find("= ")+1, " ");
-    if(identCheck(identity) && (plusop(string) || minusop(string))){
-        if((line.find("+") == line.find(identity) + 2 || line.find("-") == line.find(identity) + 2) && (isExpression(line.substr(line.find("+ ") + 1, " ")) || isExpression(line.substr(line.find("- ") + 1, " "))){
+    if(identCheck(identity)){
+        if((line.find("+") == line.find(identity) + 2 || line.find("-") == line.find(identity) + 2) && (isExpression(line.substr(line.find("+ ") + 1, line.find(" "))) || isExpression(line.substr(line.find("- ") + 1, line.find(" ")))){
             return true;
         }
-    } if else(identCheck(identity)){
+    } else if(identCheck(identity)){
         return true;
     }
     return false;
