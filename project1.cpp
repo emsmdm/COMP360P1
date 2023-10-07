@@ -160,30 +160,21 @@ bool isDeclaration(string line){
     return false;
 }
 
-bool isDeclarationDash(){
-    
+bool isAssignment(string line){
+    string end;
+    end += line.back();
+    if(identCheck(line.substr(0, line.find(" "))) && eq(line.substr(line.find(" ")+1, line.find(" "))) && isExpression(line.substr(line.find("= ")+1, line.find(";"))) && semicolon(end))
+    {
+        return true;
+    }
+    return false;
 }
 
-bool isAssignment(){
-
-}
-
-bool isExpression(){
+bool isExpression(string line){
    // isIdent();
     //isExpressionDash();
 }
 
-bool isExpressionDash(){
-
-}
-
-bool isKeyword(){
-
-}
-
-bool isIdent(){
-
-}
 
 void analyze(vector <string> vec)
 {
