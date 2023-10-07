@@ -151,7 +151,9 @@ vector<string> tokenSeparation(string filename) {
 }*/
 
 bool isDeclaration(string line){
-    if(keywordCheck(line.substr(0,line.find(" "))) && identCheck(line.substr(line.find(" "))))
+    string end;
+    end += line.back();
+    if(keywordCheck(line.substr(0,line.find(" "))) && identCheck(line.substr(line.find(" ")+1, line.find(";"))) && semicolon(end))
     {
         return true;
     }
@@ -167,8 +169,8 @@ bool isAssignment(){
 }
 
 bool isExpression(){
-    isIdent();
-    isExpressionDash();
+   // isIdent();
+    //isExpressionDash();
 }
 
 bool isExpressionDash(){
