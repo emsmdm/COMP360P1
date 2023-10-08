@@ -140,41 +140,6 @@ vector<string> tokenSeparation(string filename) {
   return tokens;
 }
 
-//utilzes getToken() function to check if a program is present
-bool isProgram(string token){
-    if(keywordCheck(token)){
-        if(identCheck(getToken())){
-            if(leftBrace(getToken())){
-                if(keywordCheck(getToken())){
-                    if(identCheck(getToken())){
-                        if(rightBrace(getToken())){
-                            if(leftBrace(getToken())){
-                                if(isDeclaration(getToken())){
-                                    if(isAssignment(getToken())){
-                                        if(rightBrace(getToken())){
-                                            return true;
-                                        }
-                                        return false;
-                                    }
-                                    return false;
-                                }
-                                return false;
-                            }
-                            return false;
-                        }
-                        return false;
-                    }
-                    return false;
-                }
-                return false;
-            }
-            return false;
-        }
-        return false;
-    }
-    return false;
-}
-
 
 // gets next token for parsing
 string getToken()
@@ -245,6 +210,50 @@ bool isAssignment(string token){
     return false;
 }
 
+//utilzes getToken() function to check if a program is present
+bool isProgram(string token){
+    if(keywordCheck(token)){
+        cout<<"yo1"<<endl;
+        if(identCheck(getToken())){
+            cout<<"yo2"<<endl;
+            if(leftBrace(getToken())){
+                cout<<"yo3"<<endl;
+                if(keywordCheck(getToken())){
+                    cout<<"yo4"<<endl;
+                    if(identCheck(getToken())){
+                        cout<<"yo5"<<endl;
+                        if(rightBrace(getToken())){
+                            cout<<"yo6"<<endl;
+                            if(leftBrace(getToken())){
+                                cout<<"yo7"<<endl;
+                                if(isDeclaration(getToken())){
+                                    cout<<"yo8"<<endl;
+                                    if(isAssignment(getToken())){
+                                        cout<<"yo9"<<endl;
+                                        if(rightBrace(getToken())){
+                                            cout<<"yo10" <<endl;
+                                            return true;
+                                        }
+                                        return false;
+                                    }
+                                    return false;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
+                        return false;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            return false;
+        }
+        return false;
+    }
+    return false;
+}
 
 // lexical analyzer
 void analyze(vector <string> vec)
@@ -301,7 +310,8 @@ int main()
         }
     }
     counter--;
-    analyze(tokens);
+    //analyze(tokens);
+    cout<<isProgram(tokens[0]);
 
     
 }
