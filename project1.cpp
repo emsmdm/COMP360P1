@@ -188,7 +188,7 @@ string getToken()
 bool isExpression(string token){
     if(identCheck(token)){
         string temp = getToken();
-        if(plusop(temp) || minusop(temp){
+        if(plusop(temp) || minusop(temp)){
             isExpression(temp);
         }else{
             num--;
