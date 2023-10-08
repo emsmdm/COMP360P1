@@ -264,33 +264,33 @@ void analyze(vector <string> vec)
         {
             cout << "keyword   " << token << endl;
         }
-        else if(identCheck(token))
-        {
-            cout << "ident     " << token << endl;
-        }
         else if(leftBrace(token))
         {
-            cout << "l_brace     " << token << endl;
+            cout << "l_brace   " << token << endl;
         }
         else if(rightBrace(token))
         {
-            cout << "r_brace     " << token << endl;
+            cout << "r_brace   " << token << endl;
         }
         else if(eq(token))
         {
-            cout << "eq          " << token << endl;
+            cout << "eq        " << token << endl;
         }
         else if(semicolon(token))
         {
-            cout << "semicolon   " << token << endl;
+            cout << "semicolon " << token << endl;
         }
         else if(plusop(token))
         {
-            cout << "plus_op     " << token << endl;
+            cout << "plus_op   " << token << endl;
         }
         else if(minusop(token))
         {
-            cout << "minus_op    " << token << endl;
+            cout << "minus_op  " << token << endl;
+        }
+        else if(identCheck(token))
+        {
+            cout << "ident     " << token << endl;
         }
     }
 }
@@ -310,7 +310,7 @@ int main()
         }
     }
     counter--;
-    //analyze(tokens);
+    analyze(tokens);
     cout<<isProgram(tokens[0]);
 
     
